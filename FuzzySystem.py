@@ -22,20 +22,20 @@ speedChange = ctrl.Consequent(np.arange(-1,1,.01), 'speedChange')
 
 # Distance membership function for the dry road conditon
 if roadConditionDry:
-    frontVehicleDistance['dangerous'] = fuzz.trapmf(frontVehicleDistance.universe, [0,0,30,45])
-    frontVehicleDistance['close'] = fuzz.gaussmf(frontVehicleDistance.universe, 85,25)
-    frontVehicleDistance['safe'] = fuzz.smf(frontVehicleDistance.universe, 145,200)
+    frontVehicleDistance['dangerous'] = fuzz.trimf(frontVehicleDistance.universe, [0,0,45])
+    frontVehicleDistance['close'] = fuzz.trimf(frontVehicleDistance.universe, [0,85,170])
+    frontVehicleDistance['safe'] = fuzz.trimf(frontVehicleDistance.universe, [145,200,200])
 
 # Distance membership function for the wet road condition - based on a friction coefficient of 0.7
 else:
-    frontVehicleDistance['dangerous'] = fuzz.trapmf(frontVehicleDistance.universe, [0,0,26,32])
-    frontVehicleDistance['close'] = fuzz.gaussmf(frontVehicleDistance.universe, 69,25)
-    frontVehicleDistance['safe'] = fuzz.zmf(frontVehicleDistance.universe, 113,200)
+    frontVehicleDistance['dangerous'] = fuzz.trimf(frontVehicleDistance.universe, [0,0,32])
+    frontVehicleDistance['close'] = fuzz.trimf(frontVehicleDistance.universe, [0,69,150])
+    frontVehicleDistance['safe'] = fuzz.trimf(frontVehicleDistance.universe, [113,200,200])
 
 # Current speed membership function
-currentSpeed['slow'] = fuzz.trapmf(currentSpeed.universe, [40,40, 45, 50])
-currentSpeed['normal'] = fuzz.gaussmf(currentSpeed.universe, 75,20)
-currentSpeed['fast'] =fuzz.smf(currentSpeed.universe, 90,110)
+currentSpeed['slow'] = fuzz.trimf(currentSpeed.universe, [40,40,75])
+currentSpeed['normal'] = fuzz.trimf(currentSpeed.universe, [40,75,110])
+currentSpeed['fast'] =fuzz.trimf(currentSpeed.universe, [75,110,110])
 
 # Change in speed membership function
 # Negative numbers refer to reducing speed, positive to increasing speed
